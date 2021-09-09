@@ -28,7 +28,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # Configuration
 #
 FSIO_WEB_APIKEY = ""
-FSIO_WEB_ENDPOINT = "https://production.filescan.io/"
+FSIO_WEB_ENDPOINT = "https://www.filescan.io/"
 FSIO_MAX_WORKERS = 10
 
 #
