@@ -1,21 +1,18 @@
-from msilib.schema import Error
-import os
 import aiohttp
 import asyncio
 from aiohttp.http_exceptions import HttpProcessingError
-from typing import Dict
-from common.async_payload import AsyncPayload
-from .file import File
+from typing import Any, Dict
+from common.singleton import Singleton
 
 
-class HttpRequests:
+class HttpRequests(metaclass=Singleton):
     """Http requests.
 
     All requests are performed asyncronously.
     """
 
     def __init__(self):
-        self.file_manager = File()
+        pass
 
 
     async def post_file(
@@ -77,17 +74,17 @@ class HttpRequests:
         return {"group": data["group_id"], "json": json}
 
 
-    async def get(self, url, headers):
+    async def get(self, url: str, headers: Dict, params):
         """Perform get request"""
 
         async with aiohttp.ClientSession(connector=self.__getConnector()) as session:
-            return await self.__get(url, headers, session)
+            return await self.__get(url, headers, params, session)
 
 
-    async def __get(self, url, headers, session):
+    async def __get(self, url: str, headers: Dict, params: Any, session: aiohttp.ClientSession):
         """Perform get request with provided session object"""
 
-        async with session.get(url, headers=headers) as response:
+        async with session.get(url, headers=headers, params=params) as response:
             json = await response.text()
 
             return json

@@ -1,7 +1,7 @@
-from typing import Optional
+import asyncio
 import asyncclick as aclick
-from service.scan import ScanFile
-
+from flow.scan import ScanFlow
+from halo import Halo
 
 @aclick.group(name='scan')
 def scan():
@@ -13,9 +13,9 @@ def scan():
 @aclick.option('-l', '--link', type=str, is_flag=False, default='', help='Link URL to scan. One of the link or file must be valid.')
 @aclick.option('-d', '--desc', type=str, is_flag=False, default='', help='Additional description of the file')
 @aclick.option('-t', '--tags', type=str, is_flag=False, default='', help='| separated tags to propagate to the report')
-@aclick.option('-p', '--prop-tags', type=bool, is_flag=False, default=False, help='Whether propagate tags to the report or not')
+@aclick.option('-p', '--prop-tags', type=bool, is_flag=True, default=False, help='Whether propagate tags to the report or not')
 @aclick.option('--password', type=str, is_flag=False, default='', help='Custom password of the file to scan')
-@aclick.option('--private', type=bool, is_flag=False, default=False, help='Whether the file can be shared or not')
+@aclick.option('--private', type=bool, is_flag=True, default=False, help='Whether the file can be shared or not')
 async def upload(
     file: str,
     link: str,
@@ -25,5 +25,5 @@ async def upload(
     password: str,
     private: bool
 ):
-    scan_file = ScanFile()
-    await scan_file.run(file, link, desc, tags, prop_tags, password, private)
+    scan_flow = ScanFlow()
+    await scan_flow.run(file, link, desc, tags, prop_tags, password, private)
