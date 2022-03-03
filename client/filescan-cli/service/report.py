@@ -47,8 +47,8 @@ class Report:
             endpoint,
             headers=self.headers,
             params={
-                'filter': filters,
-                'sort': sorts,
+                'filter': filters or DEFAULT_FILTERS,
+                'sort': sorts or DEFAULT_SORTS,
                 'other': ['emulationGraph'] if graph else []
             }
         )
@@ -81,8 +81,8 @@ class Report:
             endpoint,
             headers=self.headers,
             params={
-                'filter': filters,
-                'sort': sorts,
+                'filter': filters or DEFAULT_FILTERS,
+                'sort': sorts or DEFAULT_SORTS,
                 'other': ['emulationGraph'] if graph else []
             }
         )
