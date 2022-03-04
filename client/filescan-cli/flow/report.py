@@ -32,10 +32,10 @@ class ReportFlow:
 
 
     async def get_report(self, id: str, hash: str, filters: Tuple, sorts: Tuple, graph: bool) -> Dict:
-        
+
         spinner = Halo(text=f'Fetching a report ... ', placement='right')
         spinner.start()
-        
+
         report = await self.report.get_report(id, hash, filters, sorts, graph)
 
         if not report:
@@ -57,3 +57,21 @@ class ReportFlow:
             spinner.succeed()
 
         self.logger.success(json.dumps(reports))
+
+
+    async def search(self, params: Dict[str, str]) -> List:
+
+        spinner = Halo(text=f'Searching reports ... ', placement='right')
+        spinner.start()
+
+        reports = await self.report.search_reports(params)
+
+        if reports is None:
+            spinner.fail()
+        else:
+            spinner.succeed()
+
+        if not reports:
+            return
+
+        print([report['id'] for report in reports])

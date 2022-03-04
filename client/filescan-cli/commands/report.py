@@ -5,6 +5,7 @@ from flow.report import ReportFlow
 def report():
     pass
 
+
 @report.command('report', short_help='Get reports or report related to scan or id')
 @aclick.option('--flow', type=str, is_flag=False, default='', help='Flow id')
 @aclick.option('--id', type=str, is_flag=False, default='', help='''
@@ -29,3 +30,11 @@ async def get_report(
         await report_flow.get_scan_reports(flow, filters, sorts, graph)
     elif id and hash:
         await report_flow.get_report(id, hash, filters, sorts, graph)
+
+
+@report.command('export', short_help='Export report in the given format')
+@aclick.option('--id', type=str, is_flag=False, default='', help='Report id to be exported')
+@aclick.option('--format', type=aclick.Choice(['misp', 'stix', 'html', 'pdf'], case_sensitive=True), default='misp', help='Export format')
+async def export_report(id: str, format: str):
+    
+    print(f'{id}, {format}')

@@ -1,7 +1,5 @@
-import asyncio
 import asyncclick as aclick
 from flow.scan import ScanFlow
-from halo import Halo
 
 @aclick.group(name='scan')
 def scan():

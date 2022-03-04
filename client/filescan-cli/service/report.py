@@ -2,7 +2,7 @@ import json
 from typing import Dict, List, Tuple
 from core.http import HttpRequests
 from common.utils import run_safe
-from .endpoints import GET_SCAN_REPORTS, GET_SPECIFIC_REPORT, get_endpoint, GET_REPORTS
+from .endpoints import GET_SCAN_REPORTS, GET_SPECIFIC_REPORT, SEARCH_REPORT, get_endpoint, GET_REPORTS
 from common.config import API_KEY, USER_AGENT
 from core.logger import Logger
 
@@ -88,3 +88,21 @@ class Report:
         )
 
         return json.loads(result)
+
+
+    async def search_reports(self, params: Dict) -> List:
+        """Search reports"""
+
+        endpoint = get_endpoint(SEARCH_REPORT)
+        result = await run_safe(
+            self.http_client.get,
+            endpoint,
+            headers=self.headers,
+            params=params
+        )
+
+        result = json.loads(result)
+        if not result or 'items' not in result:
+            return None
+
+        return result['items']
