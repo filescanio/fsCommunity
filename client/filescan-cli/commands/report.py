@@ -1,5 +1,6 @@
 import asyncclick as aclick
 from flow.report import ReportFlow
+from flow.reports import ReportsFlow
 
 @aclick.group(name='report')
 def report():
@@ -25,10 +26,11 @@ async def get_report(
     sorts: list[str],
     graph: bool
 ):
-    report_flow = ReportFlow()
     if flow:
-        await report_flow.get_scan_reports(flow, filters, sorts, graph)
+        reports_flow = ReportsFlow()
+        await reports_flow.get_scan_reports(flow, filters, sorts, graph)
     elif id and hash:
+        report_flow = ReportFlow()
         await report_flow.get_report(id, hash, filters, sorts, graph)
 
 

@@ -5,6 +5,7 @@ from core.logger import Logger
 from halo import Halo
 from service.scan import Scan
 from service.report import Report
+from formatter.reports import ReportsFormatter
 
 
 class ScanFlow:
@@ -14,6 +15,7 @@ class ScanFlow:
         self.logger = Logger()
         self.scanner = Scan()
         self.report = Report()
+        self.formatter = ReportsFormatter()
 
 
     async def run(
@@ -33,7 +35,7 @@ class ScanFlow:
         self.logger.success(f'Flow ID: {scan_id}')
         
         reports = await self.__get_scan_reports(scan_id)
-        # self.logger.debug(reports)
+        self.logger.debug(self.formatter.format(reports))
 
 
     async def __upload(
@@ -48,6 +50,7 @@ class ScanFlow:
     ) -> str:
 
         spinner = Halo(text=f'Uploading a file {file} ... ', spinner='dots', placement='right')
+        spinner.start()
 
         response = await self.scanner.upload(file, link, desc, tags, prop_tags,password, is_private)
 

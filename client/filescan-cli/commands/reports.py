@@ -1,5 +1,5 @@
 import asyncclick as aclick
-from flow.report import ReportFlow
+from flow.reports import ReportsFlow
 
 @aclick.group(name='reports')
 def reports():
@@ -12,8 +12,8 @@ def reports():
 async def get_reports(page, page_size):
     """Get reports"""
 
-    report_flow = ReportFlow()
-    await report_flow.get_reports(page, page_size)
+    reports_flow = ReportsFlow()
+    await reports_flow.get_reports(page, page_size)
 
 
 @reports.command('search', short_help='Search reports')
@@ -77,5 +77,5 @@ async def search_reports(**kwargs):
         if value is not None:
             params[param.human_readable_name] = value
 
-    report_flow = ReportFlow()
-    await report_flow.search(params)
+    reports_flow = ReportsFlow()
+    await reports_flow.search(params)
