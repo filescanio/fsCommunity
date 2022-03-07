@@ -12,6 +12,9 @@ DOWNLOAD_FILE = '/api/files/{file_hash}'
 
 SEARCH_REPORT = '/api/reports/search'
 
+SYSTEM_INFO = '/api/system/info'
+SYSTEM_CONFIG = '/api/system/config'
+
 
 def get_endpoint(ep: str, **kwargs) -> str:
 

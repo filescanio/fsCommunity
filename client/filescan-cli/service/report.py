@@ -4,7 +4,6 @@ from core.http import HttpRequests
 from common.utils import run_safe
 from .endpoints import GET_FORMATTED_REPORT, GET_SCAN_REPORTS, GET_SPECIFIC_REPORT, SEARCH_REPORT, get_endpoint, GET_REPORTS
 from common.config import API_KEY, USER_AGENT
-from core.logger import Logger
 
 DEFAULT_FILTERS = [
     'general', 'allSignalGroups', 'allTags', 'overallState',
@@ -25,7 +24,6 @@ class Report:
 
     def __init__(self):
         self.http_client = HttpRequests()
-        self.logger = Logger()
         self.headers = {
             'X-Api-Key': API_KEY,
             'accept': 'application/json',

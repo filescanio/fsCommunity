@@ -3,10 +3,8 @@ import json
 from typing import Optional
 from common.config import API_KEY, USER_AGENT
 from core.http import HttpRequests
-from core.logger import Logger
 from common.utils import run_safe
-from .endpoints import get_endpoint, FILE_SCAN, GET_SCAN_REPORTS
-from .report import Report
+from .endpoints import get_endpoint, FILE_SCAN
 
 
 class Scan():
@@ -14,8 +12,6 @@ class Scan():
 
     def __init__(self):
         self.http_client = HttpRequests()
-        self.logger = Logger()
-        self.report = Report()
         self.headers = {
             'X-Api-Key': API_KEY,
             'accept': 'application/json',

@@ -1,5 +1,5 @@
 import asyncclick as aclick
-from flow.scan import ScanFlow
+from flow.system import SystemFlow
 
 @aclick.group(name='system')
 def system():
@@ -8,9 +8,11 @@ def system():
 
 @system.command('sysinfo', short_help='Get system information')
 async def sysinfo():
-    pass
+    system_flow = SystemFlow()
+    await system_flow.get_info()
 
 
 @system.command('sysconfig', short_help='Get system configuration')
 async def sysconfig():
-    pass
+    system_flow = SystemFlow()
+    await system_flow.get_config()

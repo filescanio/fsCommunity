@@ -74,7 +74,7 @@ class HttpRequests(metaclass=Singleton):
         return {"group": data["group_id"], "json": json}
 
 
-    async def get(self, url: str, headers: Dict, params):
+    async def get(self, url: str, headers: Dict, params = {}):
         """Perform get request"""
 
         async with aiohttp.ClientSession(connector=self.__getConnector()) as session:

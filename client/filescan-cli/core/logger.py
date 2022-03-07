@@ -64,6 +64,3 @@ class Logger(metaclass=Singleton):
         """Reset all styles"""
 
         print(colorama.Style.RESET_ALL)
-
-
-

@@ -4,17 +4,13 @@ from typing import List, Dict, Tuple
 from core.logger import Logger
 from halo import Halo
 from service.report import Report
+from common.colors import get_verdict_color
 
 class ReportFlow:
 
     def __init__(self):
         self.report = Report()
         self.logger = Logger()
-        self.colors = {
-            'malicious': colorama.Fore.RED,
-            'likely_malicious': colorama.Fore.RED,
-            'suspicious': colorama.Fore.YELLOW,
-        }
 
 
     async def get_scan_reports(self, scan_id: str, filters: Tuple, sorts: Tuple, graph: bool) -> Dict:
@@ -124,16 +120,9 @@ class ReportFlow:
 
 
     def __format_verdict(self, verdict: str) -> str:
-        verdict = verdict.lower()
-        if verdict in self.colors:
-            return self.colors[verdict] + verdict + colorama.Fore.WHITE
-        else:
-            return colorama.Fore.GREEN + verdict + colorama.Fore.WHITE
+        return get_verdict_color(verdict) + verdict + colorama.Fore.WHITE
 
 
     def __format_tag(self, tag: Dict) -> str:
-        verdict = tag['tag']['verdict']['verdict'].lower()
-        if verdict in self.colors:
-            return self.colors[verdict] + tag['tag']['name'] + colorama.Fore.WHITE
-        else:
-            return colorama.Fore.GREEN + tag['tag']['name'] + colorama.Fore.WHITE
+        verdict = tag['tag']['verdict']['verdict']
+        return get_verdict_color(verdict) + tag['tag']['name'] + colorama.Fore.WHITE
