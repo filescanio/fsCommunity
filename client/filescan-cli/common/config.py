@@ -1,4 +1,4 @@
 FILE_READ_BLOCK_SIZE = 5242880  # 5M
 API_KEY = '6YEkWKKV9slHMRJQEXYQSK7ymcyES64UWVQJEIw4'
-USER_AGENT = 'Filescan Client'
 SERVICE_BASE_URL = 'http://localhost:8000'
+USER_AGENT = 'Filescan Client'

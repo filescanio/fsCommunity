@@ -10,7 +10,6 @@ certifi==2021.10.8
 charset-normalizer==2.0.12
 colorama==0.4.4
 frozenlist==1.3.0
-halo==0.0.31
 idna==3.3
 log-symbols==0.0.14
 multidict==6.0.2
@@ -21,3 +20,4 @@ spinners==0.0.24
 termcolor==1.1.0
 urllib3==1.26.8
 yarl==1.7.2
+git+https://github.com/frostming/halo.git@multiple-spinners

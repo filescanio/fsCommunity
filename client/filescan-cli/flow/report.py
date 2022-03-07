@@ -1,6 +1,6 @@
-import asyncio
-import json
-from typing import List, Optional, Dict, Tuple
+import aiofiles
+import colorama
+from typing import List, Dict, Tuple
 from core.logger import Logger
 from halo import Halo
 from service.report import Report
@@ -10,6 +10,11 @@ class ReportFlow:
     def __init__(self):
         self.report = Report()
         self.logger = Logger()
+        self.colors = {
+            'malicious': colorama.Fore.RED,
+            'likely_malicious': colorama.Fore.RED,
+            'suspicious': colorama.Fore.YELLOW,
+        }
 
 
     async def get_scan_reports(self, scan_id: str, filters: Tuple, sorts: Tuple, graph: bool) -> Dict:
@@ -56,7 +61,7 @@ class ReportFlow:
         else:
             spinner.succeed()
 
-        self.logger.success(json.dumps(reports))
+        self.__view_reports(reports)
 
 
     async def search(self, params: Dict[str, str]) -> List:
@@ -74,4 +79,61 @@ class ReportFlow:
         if not reports:
             return
 
-        print([report['id'] for report in reports])
+        self.__view_reports(reports)
+
+
+    async def get_formatted_report(self, report_id: str, format: str, output):
+
+        spinner = Halo(text=f'Getting {format}-formatted report ... ', placement='right')
+        spinner.start()
+
+        report = await self.report.download_report(report_id, format)
+
+        if report:
+            spinner.succeed()
+            async with aiofiles.open(output, 'w+' if isinstance(report, str) else 'wb') as writer:
+                await writer.write(report)
+        else:
+            spinner.fail()
+
+
+    def __view_reports(self, reports: List):
+        """View reports"""
+
+        for report in reports:
+            self.__view_report(report)
+
+
+    def __view_report(self, report: Dict):
+        """View a report"""
+
+        self.logger.debug(self.__format_report(report))
+
+
+    def __format_report(self, report: Dict) -> str:
+
+        return f'''
+            id: {colorama.Fore.GREEN + report['id'] + colorama.Fore.WHITE}
+            name: {colorama.Fore.GREEN + report['file']['name'] + colorama.Fore.WHITE}
+            type: {report['file']['short_type']}
+            hash: {report['file']['sha256']}
+            verdict: {self.__format_verdict(report['verdict'])}
+            tags: {' '.join([self.__format_tag(tag) for tag in report['tags']])}
+            updated: {report['updated_date']}
+        '''
+
+
+    def __format_verdict(self, verdict: str) -> str:
+        verdict = verdict.lower()
+        if verdict in self.colors:
+            return self.colors[verdict] + verdict + colorama.Fore.WHITE
+        else:
+            return colorama.Fore.GREEN + verdict + colorama.Fore.WHITE
+
+
+    def __format_tag(self, tag: Dict) -> str:
+        verdict = tag['tag']['verdict']['verdict'].lower()
+        if verdict in self.colors:
+            return self.colors[verdict] + tag['tag']['name'] + colorama.Fore.WHITE
+        else:
+            return colorama.Fore.GREEN + tag['tag']['name'] + colorama.Fore.WHITE

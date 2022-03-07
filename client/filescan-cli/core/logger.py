@@ -25,7 +25,7 @@ class Logger(metaclass=Singleton):
     def exception(self, ex: Exception):
         """Log exceptions"""
 
-        self.error(f'Error of type {type(ex).__name__} occurred. Arguments:\n{ex.message}')
+        self.error(f'Error of type {type(ex).__name__} occurred. Arguments:\n{ex.message if "message" in ex.__dict__ else ex.__str__()}')
 
 
     def error(self, message: str, end = '\n'):

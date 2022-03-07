@@ -2,7 +2,7 @@ import json
 from typing import Dict, List, Tuple
 from core.http import HttpRequests
 from common.utils import run_safe
-from .endpoints import GET_SCAN_REPORTS, GET_SPECIFIC_REPORT, SEARCH_REPORT, get_endpoint, GET_REPORTS
+from .endpoints import GET_FORMATTED_REPORT, GET_SCAN_REPORTS, GET_SPECIFIC_REPORT, SEARCH_REPORT, get_endpoint, GET_REPORTS
 from common.config import API_KEY, USER_AGENT
 from core.logger import Logger
 
@@ -67,7 +67,11 @@ class Report:
             params={ 'page': page, 'page_size': page_size }
         )
 
-        return json.loads(result)
+        result = json.loads(result)
+        if not result or 'items' not in result:
+            return None
+
+        return result['items']
 
 
     async def get_report(
@@ -106,3 +110,20 @@ class Report:
             return None
 
         return result['items']
+
+
+    async def download_report(self, report_id: str, format: str):
+        """Download a formatted report"""
+
+        endpoint = get_endpoint(GET_FORMATTED_REPORT, report_id=report_id)
+        result = await run_safe(
+            self.http_client.get,
+            endpoint,
+            headers=self.headers,
+            params={ 'format': format }
+        )
+
+        if result == '':
+            return None
+
+        return result

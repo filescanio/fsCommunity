@@ -85,9 +85,12 @@ class HttpRequests(metaclass=Singleton):
         """Perform get request with provided session object"""
 
         async with session.get(url, headers=headers, params=params) as response:
-            json = await response.text()
+            if response.content_type == 'application/json':
+                result = await response.text()
+            else:
+                result = await response.read()
 
-            return json
+            return result
 
 
     def __getConnector(self):

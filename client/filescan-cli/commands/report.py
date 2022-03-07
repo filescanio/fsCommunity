@@ -33,8 +33,10 @@ async def get_report(
 
 
 @report.command('export', short_help='Export report in the given format')
-@aclick.option('--id', type=str, is_flag=False, default='', help='Report id to be exported')
-@aclick.option('--format', type=aclick.Choice(['misp', 'stix', 'html', 'pdf'], case_sensitive=True), default='misp', help='Export format')
-async def export_report(id: str, format: str):
+@aclick.option('--id', type=str, required=True, help='Report id to be exported')
+@aclick.option('--format', required=True, type=aclick.Choice(['misp', 'stix', 'html', 'pdf'], case_sensitive=True), default='misp', help='Export format')
+@aclick.option('--output', '-o', type=str, is_flag=False, default='report.out', help='Output path where report is saved')
+async def export_report(id: str, format: str, output: str):
     
-    print(f'{id}, {format}')
+    report_flow = ReportFlow()
+    await report_flow.get_formatted_report(id, format, output)

@@ -1,6 +1,9 @@
 import asyncio
+import platform
 from core.logger import Logger
 
+if platform.system() == 'Windows':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 logger = Logger()
 
