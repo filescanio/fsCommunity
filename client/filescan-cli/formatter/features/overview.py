@@ -1,17 +1,20 @@
 from typing import Dict, List, Any
 from common.colors import colorize, get_verdict_color
+from .base import BaseFormatter
+from ..utils import format_dict
+import re
 
-class OverviewFormatter:
+class OverviewFormatter(BaseFormatter):
     """Report overview"""
 
     def __init__(self):
-        pass
+        super().__init__()
 
 
     def format(self, report: Dict) -> str:
         submission_info: Dict[str, Any] = self.__format_submission_info(report)
         result = f'''
-            {colorize('Overview')}
+        {colorize('Overview')}
         '''
 
         if 'finalVerdict' in report:
@@ -29,7 +32,7 @@ class OverviewFormatter:
             Submission Info'''
 
         submission_info: Dict[str, Any] = self.__get_submission_info(report)
-        return result + self.__format_dict(submission_info)
+        return result + format_dict(submission_info)
 
 
     def __format_verdict_level(self, verdict: Dict) -> str:
@@ -85,6 +88,8 @@ class OverviewFormatter:
 
             if 'signals' in group and len(group['signals']) > 0:
                 signals = group['signals']
+                for signal in signals:
+                    signal['signalReadable'] = re.sub(' *\n+ *', ' ', signal['signalReadable'])
                 signal_output += f'''
                 Signals: ''' + ', '.join(
                     [f'''
@@ -145,14 +150,3 @@ class OverviewFormatter:
                 continue
             if resource['resourceReference']['name'] == type:
                 return resource
-
-
-    def __format_dict(self, dict: Dict) -> str:
-
-        result = ''
-        for key in dict:
-            name = ' '.join(map(lambda substr: substr.capitalize(), key.split('_')))
-            result += f'''
-            {name}: {dict[key]}'''
-
-        return result + '\n'
