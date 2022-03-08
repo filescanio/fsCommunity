@@ -1,39 +1,36 @@
-from typing import Dict
+from typing import Dict, Any, List
 from common.colors import get_verdict_color, colorize
+from .features.overview import OverviewFormatter
 
 
-class ReportsFormatter:
+class ReportFormatter:
 
     def __init__(self):
-        pass
+        self.formatters = [
+            OverviewFormatter()
+        ]
 
 
-    def format(self, reports: list) -> str:
+    def format(self, report: Dict) -> str:
 
         result = ''
-        for report in reports:
-            result += self.__format_report(report)
+        for formatter in self.formatters:
+            result += formatter.format(report)
 
         return result
 
 
-    def __format_report(self, report: Dict) -> str:
-
-        return f'''
-            id: {report['id']}
-            name: {colorize(report['file']['name'])}
-            type: {report['file']['short_type']}
-            hash: {report['file']['sha256']}
-            verdict: {self.__format_verdict(report['verdict'])}
-            tags: {' '.join([self.__format_tag(tag) for tag in report['tags']])}
-            updated: {report['updated_date']}
-        '''
+    def __get_resources(self, report: Dict) -> Dict:
+        return report['resources'] if 'resources' in report else {}
 
 
-    def __format_verdict(self, verdict: str) -> str:
-        return colorize(verdict, get_verdict_color(verdict))
-
-
-    def __format_tag(self, tag: Dict) -> str:
-        verdict = tag['tag']['verdict']['verdict']
-        return colorize(tag['tag']['name'], get_verdict_color(verdict))
+    def __get_resource(self, report: Dict, type: str) -> Dict:
+        resources = self.__get_resources(report)
+        for key in resources:
+            resource = resources[key]
+            if 'resourceReference' not in resource:
+                continue
+            if 'name' not in resource['resourceReference']:
+                continue
+            if resource['resourceReference']['name'] == type:
+                return resource
