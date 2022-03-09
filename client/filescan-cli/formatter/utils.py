@@ -3,15 +3,22 @@ from common.colors import colorize, get_verdict_color
 import math
 
 
-def format_dict(dict: Dict) -> str:
+def format_dict(dict: Dict, *, depth = 0, eol = '\n') -> str:
 
     result = ''
     for key in dict:
         name = ' '.join(map(lambda substr: substr.capitalize(), key.split('_')))
-        result += f'''
+        if depth == 0:
+            result += f'''
                 {name}: {dict[key]}'''
+        elif depth == 1:
+            result += f'''
+                    {name}: {dict[key]}'''
+        else:
+            result += f'''
+                        {name}: {dict[key]}'''
 
-    return result + '\n'
+    return result + eol
 
 
 def format_verdict(verdict: str) -> str:

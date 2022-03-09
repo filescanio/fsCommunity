@@ -71,7 +71,6 @@ class BaseFormatter:
             file_type = tag['tag']['name']
             for type in file_categories:
                 if file_type in file_categories[type]:
-                    print(type)
                     return type
 
         return 'other'
