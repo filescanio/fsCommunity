@@ -3,11 +3,15 @@ from common.colors import colorize, get_verdict_color
 import math
 
 
+def captialize_key(key: str) -> str:
+    return ' '.join(map(lambda substr: substr.capitalize(), key.split('_')))
+
+
 def format_dict(dict: Dict, *, depth = 0, eol = '\n') -> str:
 
     result = ''
     for key in dict:
-        name = ' '.join(map(lambda substr: substr.capitalize(), key.split('_')))
+        name = captialize_key(key)
         if depth == 0:
             result += f'''
                 {name}: {dict[key]}'''

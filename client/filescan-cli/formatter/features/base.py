@@ -1,5 +1,5 @@
 from typing import Dict, List
-from common.file_types import FileType, file_categories
+from ..types.file_types import file_categories
 from ..utils import format_size
 
 
