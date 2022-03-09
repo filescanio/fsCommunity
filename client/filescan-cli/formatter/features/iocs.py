@@ -40,4 +40,4 @@ class IOCFormatter(BaseFormatter):
                     result += f'''
                     {output}'''
 
-        return result
+        return result + '\n\n'

@@ -4,6 +4,7 @@ from .features.overview import OverviewFormatter
 from .features.details import DetailsFormatter
 from .features.emulation import EmulationFormatter
 from .features.iocs import IOCFormatter
+from .features.disassembly import DisassemblyFormatter
 
 
 class ReportFormatter:
@@ -13,7 +14,8 @@ class ReportFormatter:
             OverviewFormatter(),
             DetailsFormatter(),
             EmulationFormatter(),
-            IOCFormatter()
+            IOCFormatter(),
+            DisassemblyFormatter(),
         ]
 
 

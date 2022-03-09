@@ -104,8 +104,11 @@ class OverviewFormatter(BaseFormatter):
 
 
     def __format_tag(self, tag: Dict) -> str:
-        verdict = tag['tag']['verdict']['verdict']
-        return colorize(tag['tag']['name'], get_verdict_color(verdict))
+        if 'tag' in tag and 'verdict' in tag['tag']:
+            verdict = tag['tag']['verdict']['verdict']
+            return colorize(tag['tag']['name'], get_verdict_color(verdict))
+        else:
+            return tag['tag']['name']
 
 
     def __get_submission_info(self, report: Dict) -> Dict:
