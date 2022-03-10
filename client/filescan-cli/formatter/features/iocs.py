@@ -38,6 +38,7 @@ class IOCFormatter(BaseFormatter):
                         output += f' ({colorize("interesting")})'
 
                     result += f'''
-                    {output}'''
+                {output}'''
+                result += '\n'
 
         return result + '\n\n'

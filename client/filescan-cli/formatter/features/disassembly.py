@@ -23,4 +23,4 @@ class DisassemblyFormatter(BaseFormatter):
             result += f'''
             RVA: {section['fileRva']}, {section['humanDescriptor']}, {len(section['instructions'])} instructions'''
 
-        return result
+        return result + '\n\n'

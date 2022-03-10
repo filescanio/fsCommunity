@@ -88,7 +88,7 @@ class EmulationFormatter(BaseFormatter):
 
         result = f'''
 
-            {colorize('Emulation Data')}
+            {colorize('Emulation Result')}
         '''
         for item in data:
             if 'action' not in item:
