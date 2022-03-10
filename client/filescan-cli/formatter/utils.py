@@ -1,7 +1,10 @@
 from typing import Dict
 from common.colors import colorize, get_verdict_color
 import math
+import re
 
+
+MAX_LINE_SIZE = 64
 
 def captialize_key(key: str) -> str:
     return ' '.join(map(lambda substr: substr.capitalize(), key.split('_')))
@@ -37,3 +40,11 @@ def format_tag(tag: Dict) -> str:
 def format_size(size: int) -> str:
     idx = math.floor(math.log(size) / math.log(1024))
     return "{:.2f}".format(size / math.pow(1024, idx)) + ['B', 'kB', 'MB', 'GB', 'TB'][idx]
+
+
+def format_string(text: str, max: int = MAX_LINE_SIZE) -> str:
+    text = re.sub(' *\n+ *', ' ', text.strip())
+    if len(text) > (max + 10):
+        return text[:max] + '...'
+    else:
+        return text

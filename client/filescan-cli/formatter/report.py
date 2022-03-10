@@ -6,6 +6,8 @@ from .features.emulation import EmulationFormatter
 from .features.iocs import IOCFormatter
 from .features.disassembly import DisassemblyFormatter
 from .features.yara import YaraFormatter
+from .features.strings import StringsFormatter
+from .features.files import FilesFormatter
 
 
 class ReportFormatter:
@@ -18,6 +20,8 @@ class ReportFormatter:
             IOCFormatter(),
             DisassemblyFormatter(),
             YaraFormatter(),
+            StringsFormatter(),
+            FilesFormatter(),
         ]
 
 
