@@ -83,8 +83,15 @@ class OverviewFormatter(BaseFormatter):
 
             if 'allMitreTechniques' in group and len(group['allMitreTechniques']) > 0:
                 techniques = group['allMitreTechniques']
+                techs = []
+                for tech in techniques:
+                    if 'relatedTactic' in tech:
+                        techs.append(f'{tech["relatedTactic"]["name"]} / {tech["name"]}')
+                    else:
+                        techs.append(f'{tech["name"]}')
+
                 signal_output += f'''
-                Mitre Techniques: ''' + ', '.join([f'{tech["relatedTactic"]["name"]} / {tech["name"]}' for tech in techniques])
+                Mitre Techniques: ''' + ', '.join(techs)
 
             if 'signals' in group and len(group['signals']) > 0:
                 signals = group['signals']

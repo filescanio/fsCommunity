@@ -1,18 +1,15 @@
 import json
-from common.config import USER_AGENT
 from core.http import HttpRequests
 from common.utils import run_safe
 from .endpoints import get_endpoint, SYSTEM_INFO, SYSTEM_CONFIG
+from .headers import get_public_header
 
 
 class System:
     
     def __init__(self):
         self.http_client = HttpRequests()
-        self.headers = {
-            'accept': 'application/json',
-            'User-Agent': USER_AGENT
-        }
+        self.headers = get_public_header()
 
 
     async def get_info(self):

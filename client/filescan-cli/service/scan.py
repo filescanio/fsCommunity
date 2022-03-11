@@ -1,10 +1,10 @@
 import os
 import json
 from typing import Optional
-from common.config import API_KEY, USER_AGENT
 from core.http import HttpRequests
 from common.utils import run_safe
 from .endpoints import get_endpoint, FILE_SCAN
+from .headers import get_private_header
 
 
 class Scan():
@@ -12,11 +12,7 @@ class Scan():
 
     def __init__(self):
         self.http_client = HttpRequests()
-        self.headers = {
-            'X-Api-Key': API_KEY,
-            'accept': 'application/json',
-            'User-Agent': USER_AGENT
-        }
+        self.headers = get_private_header()
 
 
     async def upload(

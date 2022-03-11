@@ -1,5 +1,7 @@
 import asyncclick as aclick
 from flow.reports import ReportsFlow
+from common.config import load_config
+
 
 @aclick.group(name='reports')
 def reports():
@@ -7,16 +9,20 @@ def reports():
 
 
 @reports.command('reports', short_help='Get reports')
+@aclick.option('--config', type=str, is_flag=False, default='', help='Path to the config file')
 @aclick.option('--page', type=int, is_flag=False, default=1, help='Page number')
 @aclick.option('--page-size', type=int, is_flag=False, default=10, help='Page size')
-async def get_reports(page, page_size):
+async def get_reports(config: str, page: int, page_size: int):
     """Get reports"""
+
+    load_config(config)
 
     reports_flow = ReportsFlow()
     await reports_flow.get_reports(page, page_size)
 
 
 @reports.command('search', short_help='Search reports')
+@aclick.option('--config', type=str, is_flag=False, default='', help='Path to the config file')
 @aclick.option('--filename', type=str, is_flag=False, help='File name')
 @aclick.option(
     '--filetype',
@@ -71,11 +77,14 @@ async def get_reports(page, page_size):
 async def search_reports(**kwargs):
     """Get reports"""
 
+    load_config(kwargs['config'])
+    del kwargs['config']
+
     params = {}
-    for param in search_reports.params:
-        value = kwargs[param.human_readable_name]
+    for param in kwargs:
+        value = kwargs[param]
         if value is not None:
-            params[param.human_readable_name] = value
+            params[param] = value
 
     reports_flow = ReportsFlow()
     await reports_flow.search(params)
