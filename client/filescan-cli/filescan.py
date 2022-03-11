@@ -1,4 +1,3 @@
-import asyncio
 import asyncclick as aclick
 from commands.scan import scan
 from commands.report import report

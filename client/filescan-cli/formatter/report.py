@@ -8,6 +8,8 @@ from .features.disassembly import DisassemblyFormatter
 from .features.yara import YaraFormatter
 from .features.strings import StringsFormatter
 from .features.files import FilesFormatter
+from .features.osint import OsintFormatter
+from .features.geolocation import GeoFormatter
 
 
 class ReportFormatter:
@@ -22,6 +24,8 @@ class ReportFormatter:
             YaraFormatter(),
             StringsFormatter(),
             FilesFormatter(),
+            OsintFormatter(),
+            GeoFormatter()
         ]
 
 

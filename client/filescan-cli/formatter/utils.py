@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from common.colors import colorize, get_verdict_color
 import math
 import re
@@ -35,6 +35,10 @@ def format_verdict(verdict: str) -> str:
 def format_tag(tag: Dict) -> str:
     verdict = tag['tag']['verdict']['verdict']
     return colorize(tag['tag']['name'], get_verdict_color(verdict))
+
+
+def format_tags(tags: List) -> str:
+    return ', '.join([format_tag(tag) for tag in tags])
 
 
 def format_size(size: int) -> str:
