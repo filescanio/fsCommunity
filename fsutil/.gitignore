@@ -1,0 +1,6 @@
+.vs/
+src/packages/
+src/fsutil/bin/
+src/fsutil/obj/
+
+src/fsutil/fsutil.csproj.user
