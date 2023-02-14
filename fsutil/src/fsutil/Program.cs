@@ -11,6 +11,8 @@ namespace ProcessFile
 {
     class Program
     {
+        private static Dictionary<string,string> config = new Dictionary<string,string>();
+
         private static string getPrettyJson(string json)
         {
             JObject o = JObject.Parse(json);
@@ -30,15 +32,21 @@ namespace ProcessFile
         }
 
 
-        public static string getServerURL()
+        public static void initializeConfig()
         {
-            string result = "";
-
-            string configJSON = File.ReadAllText("serverConfig.json");
+            string configJSON = File.ReadAllText("serverconfig.json");
 
             JObject o = JObject.Parse(configJSON);
-            result = (string)o["serverUrl"];
-            return result;
+            
+            foreach(JToken current in o.Descendants())
+            {
+                if (current is JProperty)
+                {
+                    string name = (string)((JProperty)current).Name;
+                    string jsonValue = (string)((JProperty)current).Value;
+                    config.Add(name, jsonValue);
+                }
+            }
         }
 
 
@@ -65,12 +73,12 @@ namespace ProcessFile
 
 
 
+                initializeConfig();
                 Dictionary<string, string> parameters = TaskUtil.GetInputParamters(args);
-                string serverURL = getServerURL();
 
                 if (taskName != null)
                 {
-                    ITask task = TaskUtil.GetTaskInstance(taskName, serverURL, parameters);
+                    ITask task = TaskUtil.GetTaskInstance(taskName, config, parameters);
 
                     if (task != null)
                     {

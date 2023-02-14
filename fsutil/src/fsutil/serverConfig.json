@@ -1,3 +1,5 @@
 {
-  "serverUrl": "https://www.filescan.io"
+  "serverUrl": "https://www.filescan.io",
+  "inviteServerUrl": "%InviteServerURL%",
+  "inviteSecret" :  "%InviteSecret%"
 }

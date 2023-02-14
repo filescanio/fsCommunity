@@ -34,10 +34,10 @@ namespace fsutil.Tasks
         //****************************************************************************************************************************************************
 
 
-        public void Initialize(string serverURL, Dictionary<string, string> parameters)
+        public void Initialize(Dictionary<string, string> config, Dictionary<string, string> parameters)
         {
             this.apiKey = TaskUtil.GetTaskValue(parameters, "apikey");
-            this.serverURL = serverURL;
+            this.serverURL = TaskUtil.GetTaskValue(config, "serverUrl");
             this.scanFilePath = TaskUtil.GetTaskValue(parameters, "input");
             this.isFirst = TaskUtil.GetTaskValue(parameters, "isfirst", "true");
         }

@@ -33,11 +33,11 @@ namespace fsutil.Tasks
         ///                                         Task Operations
         //****************************************************************************************************************************************************
 
-        public void Initialize(string serverURL, Dictionary<string, string> parameters)
+        public void Initialize(Dictionary<string, string> config, Dictionary<string, string> parameters)
         {
             this.apiKey = TaskUtil.GetTaskValue(parameters, "apikey");
-            this.serverURL = serverURL;
             this.csvFile = TaskUtil.GetTaskValue(parameters, "output");
+            this.serverURL = TaskUtil.GetTaskValue(config, "serverUrl");
         }
 
         private void PrintHeader()

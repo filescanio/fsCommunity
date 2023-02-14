@@ -14,7 +14,7 @@ namespace fsutil.Tasks
          
         string ExpectedSyntax { get; }
 
-        void Initialize(string serverURL, Dictionary<string, string> parameters);
+        void Initialize(Dictionary<string, string> config, Dictionary<string, string> parameters);
         
         void Run();
 

@@ -10,7 +10,7 @@ namespace fsutil.Tasks
     internal class TaskUtil
     {
 
-        public static ITask GetTaskInstance(string taskName, string serverURL, Dictionary<string,string> parameters)
+        public static ITask GetTaskInstance(string taskName, Dictionary<string, string> config, Dictionary<string,string> parameters)
         {
             ITask result = null;
 
@@ -24,7 +24,7 @@ namespace fsutil.Tasks
                 //
                 if(currentTask.Name == taskName)
                 {
-                    currentTask.Initialize(serverURL, parameters);
+                    currentTask.Initialize(config, parameters);
                     result = currentTask;
                     break;
                 }

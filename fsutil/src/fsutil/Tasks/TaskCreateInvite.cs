@@ -12,7 +12,7 @@ namespace fsutil.Tasks
     internal class TaskCreateInvite : ITask
     {
         private string secret;
-        private string serverURL;
+        private string inviteServerURL;
 
 
         //****************************************************************************************************************************************************
@@ -22,26 +22,25 @@ namespace fsutil.Tasks
 
         public string Name => "createinvite";
 
-        public string HelpDescription => "Create an invite for the server that can be shared with customers";
+        public string HelpDescription => "Create an invite for the server that can be shared with customers.  Configure the invite server URL and secret in the serverconfig.json";
 
-        public string ExpectedSyntax => "results --secret %secret%";
+        public string ExpectedSyntax => "createinvite";
 
 
         //****************************************************************************************************************************************************
         ///                                         Task Operations
         //****************************************************************************************************************************************************
 
-        public void Initialize(string serverURL, Dictionary<string, string> parameters)
+        public void Initialize(Dictionary<string, string> config, Dictionary<string, string> parameters)
         {
-            this.secret = TaskUtil.GetTaskValue(parameters, "secret");
-            //this.serverURL = serverURL;
-            this.serverURL = "https://51.195.89.2:22022";
+            this.secret = TaskUtil.GetTaskValue(config, "inviteSecret");
+            this.inviteServerURL = TaskUtil.GetTaskValue(config, "inviteServerUrl");
         }
 
         public void Run()
         {
 
-            string requestUrl = serverURL + "/invite";
+            string requestUrl = inviteServerURL + "/invite";
             string result = "";
 
             //

@@ -11,6 +11,9 @@ https://www.filescan.io/users/profile
 Once a key is created you can test uploading a file with the following command:
 fsutil scanfile --apikey %APIKEY% --input %FileToScan%
 
+To upload an entire folder:
+fsutil scanfolder --apikey %APIKEY% --input %FolderToScan%
+
 To pull the results use the following command:
 fsutil results --apikey %APIKEY% --output %csvFile%
 

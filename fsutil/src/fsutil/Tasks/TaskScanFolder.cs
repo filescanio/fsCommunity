@@ -7,8 +7,8 @@ namespace fsutil.Tasks
     internal class TaskScanFolder : ITask
     {
         string apiKey;
-        string serverURL;
         string scanFolderPath;
+        Dictionary<string, string> config;
 
 
         //****************************************************************************************************************************************************
@@ -21,11 +21,11 @@ namespace fsutil.Tasks
 
         string ITask.ExpectedSyntax => "scanfolder --apikey %APIKEY% --input %FolderToScan%";
 
-        public void Initialize(string serverURL, Dictionary<string, string> parameters)
+        public void Initialize(Dictionary<string, string> config, Dictionary<string, string> parameters)
         {
             this.apiKey = TaskUtil.GetTaskValue(parameters,"apikey");
-            this.serverURL = serverURL;
             this.scanFolderPath = TaskUtil.GetTaskValue(parameters,"input");
+            this.config = config;
         }
 
         //****************************************************************************************************************************************************
@@ -51,7 +51,7 @@ namespace fsutil.Tasks
         private void ScanFile(string fileNamePath, bool isFirst)
         {
             Dictionary<string, string> parameters = GetScanParameters(fileNamePath, isFirst);
-            ITask scanTaskInstance = TaskUtil.GetTaskInstance("scanfile", serverURL, parameters);
+            ITask scanTaskInstance = TaskUtil.GetTaskInstance("scanfile", config, parameters);
             scanTaskInstance.Run();
         }
 
