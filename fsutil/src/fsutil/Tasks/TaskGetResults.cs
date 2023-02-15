@@ -2,11 +2,9 @@
 using ProcessFile;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace fsutil.Tasks
@@ -80,7 +78,7 @@ namespace fsutil.Tasks
             StringBuilder csvFileString = new StringBuilder();
 
             //csvFileString.AppendLine("Name,Verdict,State,Date,Detail URL,Sha256,Id,Flow ID");
-            csvFileString.AppendLine("Name,Verdict,Date,Detail URL,Sha256,Id,Flow ID");
+            csvFileString.AppendLine("Name,Verdict,File Type,Date,Detail URL,Sha256,Id,Flow ID");
 
             foreach (ScanResult current in scanResultList)
             {
@@ -89,6 +87,18 @@ namespace fsutil.Tasks
 
             return csvFileString.ToString();
         }
+
+        private DateTime GetDateTimeFromFS(string dateString)
+        {
+            DateTime result = DateTime.Now;
+
+
+
+
+
+            return result;
+        }
+
 
 
         private bool ParseResults(string jsonResult, List<ScanResult> resultList)
@@ -104,11 +114,12 @@ namespace fsutil.Tasks
                 ScanResult newResult = new ScanResult();
                 newResult.filename = (string)currentItem["file"]["name"];
                 newResult.sha256 = (string)currentItem["file"]["sha256"];
+                newResult.fileType = (string)currentItem["file"]["short_type"];
                 newResult.id = (string)currentItem["id"];
                 newResult.state = (string)currentItem["state"];
                 newResult.verdict = (string)currentItem["verdict"];
                 newResult.flow_id = (string)currentItem["scan_init"]["id"];
-                newResult.date = (string)currentItem["date"];
+                newResult.date = (DateTime)currentItem["date"];
 
                 //
                 // Create the URL
