@@ -1,0 +1,973 @@
+{
+	"info": {
+		"_postman_id": "3faa6d34-6cc8-4808-902c-8c53edb455a5",
+		"name": "ThreatIntel Reputation API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11461903"
+	},
+	"item": [
+		{
+			"name": "v4 Apikey - Get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"description": "Gives rights to use the endpoint"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/apikey",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"apikey"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Successful request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "https://api.metadefender.com/v4/apikey/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"metadefender",
+								"com"
+							],
+							"path": [
+								"v4",
+								"apikey",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Authenticated",
+							"value": "by apikey"
+						},
+						{
+							"key": "X-Response-Time",
+							"value": "expressed in milliseconds"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"max_upload_file_size\": 140,\n    \"max_archive_file_size\": 140,\n    \"max_archive_file_number\": 50,\n    \"limit_prevention\": 40,\n    \"limit_reputation\": 4000,\n    \"limit_sandbox\": 1,\n    \"limit_feed\": 1000,\n    \"qos_scan\": \"normal\",\n    \"updated_at\": \"2019-02-21T09:12:36.275Z\",\n    \"created_at\": \"2019-02-21T09:12:36.275Z\",\n    \"portal_api_key\": \"1981b1387c84f2f1465ae14994b96c5c\",\n    \"source\": \"mdcloud_fingerprint\",\n    \"workflow_rule\": 0,\n    \"votes\": [],\n    \"vulnerability_submissions\": [],\n    \"expiration_date\": \"1970-01-01T00:00:00.000Z\",\n    \"time_interval\": \"daily\",\n    \"nickname\": \"throbbing_band_caae\",\n    \"paid_user\": 0\n}"
+				},
+				{
+					"name": "Failed request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "https://api.metadefender.com/v4/apikey/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"metadefender",
+								"com"
+							],
+							"path": [
+								"v4",
+								"apikey",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 404008,\n        \"messages\": [\n            \"The apikey was not found\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Hash Lookup V4 - Infected",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/hash/6A5C19D9FFE8804586E8F4C0DFCC66DE",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"hash",
+						"6A5C19D9FFE8804586E8F4C0DFCC66DE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hash Bulk Lookup V4 - Mixed",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hash\": [\n        \"99861C9C2020AA3AE0DCC8998ADDF9B6\",\n        \"06C0A7D6268FD59965435425CC885AC4\",\n        \"B6DF36B9DB6066378018865BEB6F624F\",\n        \"8b422d10809e35a746e15c1c8fd22bc422e47c9e28062e588b8546910deb1258\",\n        \"d84c1f80208099614a461678af8e0f4f\",\n        \"2efd1ed85c1738334d2485086c90b587\",\n        \"75c93fee9dcc4f4a26cc134a07a6421f\",\n        \"855f8b17d0fd46a29f3d121cc86e68fd\",\n        \"03bfe1314b066347fa466711116d295f\",\n        \"0f3089c7686ebf9d41df2e163259211f\",\n        \"b4d3c27d3e7623b82dc56d18ab2322b9\",\n        \"482af977c4728fcc6451d552e2421a3c\",\n        \"e6de409676a1bac3f9fe958345a80ab5\",\n        \"e110033caac0de477a7b24e22130e91b\",\n        \"45a51f331c488432bab9fcbc9acee767\",\n        \"0171faa643b689682bd3c0d79c799885\",\n        \"8F7920DA1D52B06A61D7A41C51D595AC\",\n        \"AA73B43084E93E741552E5B9C8DEE457\",\n        \"3433B43084EABC741552E52AD8DEE457\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v4/hash",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"hash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP Lookup V4 - Google DNS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "apikey {{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/ip/8.8.8.8",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"ip",
+						"8.8.8.8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP Bulk Lookup V4",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"description": "Gives rights to use the endpoint"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Specify the http content type"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\":[\"185.202.1.81\", \"8.8.8.8\", \"243.122.87.219\", \"::ffff:18.185.203.6\"]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v4/ip",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"ip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Domain Lookup V4 - Blacklisted Custom",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"type": "text",
+						"value": "{{apikey}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/domain/otswat.com",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"domain",
+						"otswat.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Domain Bulk Lookup V4 - Mixed",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"description": "Gives rights to use the endpoint"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Specify the http content type"
+					},
+					{
+						"key": "Authorization",
+						"value": "apikey {{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "X-RateLimit-Remaining",
+						"value": "2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fqdn\": [\n        \"google.com\",\n        \"greenbuss.com\",\n        \"templatesbay.com\",\n        \"dd.myapp.tcdn.qq.com\",\n        \"dd1.yourapp.tcdn.qq.de\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v4/domain",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"domain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "URL Lookup V4 - Phishing",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"type": "text",
+						"value": "{{apikey}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/url/http%3A%2F%2Frefritecmacae.com.br%2Fgooglef79007570d8d78c4.html",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"url",
+						"http%3A%2F%2Frefritecmacae.com.br%2Fgooglef79007570d8d78c4.html"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "URL Bulk Lookup V4 - Malicious",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"description": "Gives rights to use the endpoint"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Specify the http content type"
+					},
+					{
+						"key": "Authorization",
+						"value": "apikey {{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "X-RateLimit-Remaining",
+						"value": "2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"url\": [\n        \"https://facbookauthantication.000webhostapp.com\",\n        \"https://gglechecking.weebly.com\",\n        \"https://lglcwr.cn\",\n        \"http://59.93.31.129/bin.sh\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v4/url",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"url"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v5 Threat Intel Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV File Reputation - Malicious DLL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-file-reputation/4102F370AAF46629575DAFFBD5A0B3C9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-file-reputation",
+						"4102F370AAF46629575DAFFBD5A0B3C9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV File Reputation - Benign EXE",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-file-reputation/0465AE2CBB2C04FF387B79E839CF97DE",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-file-reputation",
+						"0465AE2CBB2C04FF387B79E839CF97DE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV File Reputation - Black Energy DOC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-file-reputation/E15B36C2E394D599A8AB352159089DD2",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-file-reputation",
+						"E15B36C2E394D599A8AB352159089DD2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV File Reputation - Industroyer EXE",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "extended",
+						"type": "text",
+						"value": "1"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-file-reputation/8E39ECA1E48240C01EE570631AE8F0C9A9637187",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-file-reputation",
+						"8E39ECA1E48240C01EE570631AE8F0C9A9637187"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV File Reputation - Bulk - OT Samples",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-RateLimit-Remaining",
+						"value": "2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hash\": [\n        \"6bcf88251c876ef00b2f32cf97456a3e306c2a263d487b0a50216c6e3cc07c6a\",\n        \"79a298569dba841400779cd04253e279ab4b921c2017ee3b9cb5984916edfecd\",\n        \"801e3b6d84862163a735502f93b9663be53ccbdd7f12b0707336fecba3a829a2\",\n        \"39d04828ab0bba42a0e4cdd53fe1c04e4eef6d7b26d0008bd0d88b06cc316a81\",\n        \"1C90ECF995A70AF8F1D15E9C355B075B4800B4DE\",\n        \"6bfc42f7cb1364ef0bfd749776ac6d38\",\n        \"4102f370aaf46629575daffbd5a0b3c9\",\n        \"052ebc9a518e5ae02bbd1bd3a5a86c3560aefc9313c18d81f6670c3430f1d4d4\",\n        \"2ED3E37608E65BE8B6E8C59F8C93240BD0EFE9A60C08C21F4889C00EB6082D74\",\n        \"D4DA69E424241C291C173C8B3756639C654432706E7DEF5025A649730868C4A1\",\n        \"f6c21f8189ced6ae150f9ef2e82a3a57843b587d\",\n        \"cccce62996d578b984984426a024d9b250237533\",\n        \"8e39eca1e48240c01ee570631ae8f0c9a9637187\",\n        \"FD9C17C35A68FC505235E20C6E50C622AED8DEA0\",\n        \"6FA04992C0624C7AA3CA80DA6A30E6DE91226A16\",\n        \"e8542c07b2af63ee7e72ce5d97d91036c5da56e2b091aa2afe737b224305d230\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-file-reputation/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-file-reputation",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV Scan History - Long History",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-scan-history/5BF5ED7265B97A16DDD231A9C7BFC704",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-scan-history",
+						"5BF5ED7265B97A16DDD231A9C7BFC704"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV Scan History - Black Energy DLL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-scan-history/4102F370AAF46629575DAFFBD5A0B3C9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-scan-history",
+						"4102F370AAF46629575DAFFBD5A0B3C9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV Scan History - Black Energy DOC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-scan-history/E15B36C2E394D599A8AB352159089DD2",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-scan-history",
+						"E15B36C2E394D599A8AB352159089DD2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AV Scan History - Bulk - OT Samples",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "extended",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hash\": [\n        \"6bcf88251c876ef00b2f32cf97456a3e306c2a263d487b0a50216c6e3cc07c6a\",\n        \"79a298569dba841400779cd04253e279ab4b921c2017ee3b9cb5984916edfecd\",\n        \"801e3b6d84862163a735502f93b9663be53ccbdd7f12b0707336fecba3a829a2\",\n        \"39d04828ab0bba42a0e4cdd53fe1c04e4eef6d7b26d0008bd0d88b06cc316a81\",\n        \"1C90ECF995A70AF8F1D15E9C355B075B4800B4DE\",\n        \"6bfc42f7cb1364ef0bfd749776ac6d38\",\n        \"4102f370aaf46629575daffbd5a0b3c9\",\n        \"052ebc9a518e5ae02bbd1bd3a5a86c3560aefc9313c18d81f6670c3430f1d4d4\",\n        \"2ED3E37608E65BE8B6E8C59F8C93240BD0EFE9A60C08C21F4889C00EB6082D74\",\n        \"D4DA69E424241C291C173C8B3756639C654432706E7DEF5025A649730868C4A1\",\n        \"f6c21f8189ced6ae150f9ef2e82a3a57843b587d\",\n        \"cccce62996d578b984984426a024d9b250237533\",\n        \"8e39eca1e48240c01ee570631ae8f0c9a9637187\",\n        \"FD9C17C35A68FC505235E20C6E50C622AED8DEA0\",\n        \"6FA04992C0624C7AA3CA80DA6A30E6DE91226A16\",\n        \"e8542c07b2af63ee7e72ce5d97d91036c5da56e2b091aa2afe737b224305d230\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/av-scan-history/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"av-scan-history",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File Analyis - Black Energy DLL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/file-analysis/4102F370AAF46629575DAFFBD5A0B3C9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"file-analysis",
+						"4102F370AAF46629575DAFFBD5A0B3C9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File Analyis - Black Energy DOC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/file-analysis/E15B36C2E394D599A8AB352159089DD2",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"file-analysis",
+						"E15B36C2E394D599A8AB352159089DD2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File Analyis - Benign EXE",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/file-analysis/0465AE2CBB2C04FF387B79E839CF97DE",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"file-analysis",
+						"0465AE2CBB2C04FF387B79E839CF97DE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "File Analysis - Bulk - OT Samples",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"type": "text",
+						"value": "1",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hash\": [\n        \"6bcf88251c876ef00b2f32cf97456a3e306c2a263d487b0a50216c6e3cc07c6a\",\n        \"79a298569dba841400779cd04253e279ab4b921c2017ee3b9cb5984916edfecd\",\n        \"801e3b6d84862163a735502f93b9663be53ccbdd7f12b0707336fecba3a829a2\",\n        \"39d04828ab0bba42a0e4cdd53fe1c04e4eef6d7b26d0008bd0d88b06cc316a81\",\n        \"ba8da708b8784afd36c44bb5f1f436bc\",\n        \"6bfc42f7cb1364ef0bfd749776ac6d38\",\n        \"4102f370aaf46629575daffbd5a0b3c9\",\n        \"052ebc9a518e5ae02bbd1bd3a5a86c3560aefc9313c18d81f6670c3430f1d4d4\",\n        \"2ED3E37608E65BE8B6E8C59F8C93240BD0EFE9A60C08C21F4889C00EB6082D74\",\n        \"D4DA69E424241C291C173C8B3756639C654432706E7DEF5025A649730868C4A1\",\n        \"f6c21f8189ced6ae150f9ef2e82a3a57843b587d\",\n        \"cccce62996d578b984984426a024d9b250237533\",\n        \"8e39eca1e48240c01ee570631ae8f0c9a9637187\",\n        \"FD9C17C35A68FC505235E20C6E50C622AED8DEA0\",\n        \"6FA04992C0624C7AA3CA80DA6A30E6DE91226A16\",\n        \"e8542c07b2af63ee7e72ce5d97d91036c5da56e2b091aa2afe737b224305d230\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/file-analysis/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"file-analysis",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

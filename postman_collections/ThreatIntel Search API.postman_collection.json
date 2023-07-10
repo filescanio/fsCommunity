@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "997685f7-d05a-403a-ad78-b5f9aaf3ccfc",
+		"name": "ThreatIntel Search API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11461903"
+	},
+	"item": [
+		{
+			"name": "v4 Apikey - Get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"description": "Gives rights to use the endpoint"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v4/apikey",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v4",
+						"apikey"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Successful request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "https://api.metadefender.com/v4/apikey/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"metadefender",
+								"com"
+							],
+							"path": [
+								"v4",
+								"apikey",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Authenticated",
+							"value": "by apikey"
+						},
+						{
+							"key": "X-Response-Time",
+							"value": "expressed in milliseconds"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"max_upload_file_size\": 140,\n    \"max_archive_file_size\": 140,\n    \"max_archive_file_number\": 50,\n    \"limit_prevention\": 40,\n    \"limit_reputation\": 4000,\n    \"limit_sandbox\": 1,\n    \"limit_feed\": 1000,\n    \"qos_scan\": \"normal\",\n    \"updated_at\": \"2019-02-21T09:12:36.275Z\",\n    \"created_at\": \"2019-02-21T09:12:36.275Z\",\n    \"portal_api_key\": \"1981b1387c84f2f1465ae14994b96c5c\",\n    \"source\": \"mdcloud_fingerprint\",\n    \"workflow_rule\": 0,\n    \"votes\": [],\n    \"vulnerability_submissions\": [],\n    \"expiration_date\": \"1970-01-01T00:00:00.000Z\",\n    \"time_interval\": \"daily\",\n    \"nickname\": \"throbbing_band_caae\",\n    \"paid_user\": 0\n}"
+				},
+				{
+					"name": "Failed request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "https://api.metadefender.com/v4/apikey/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"metadefender",
+								"com"
+							],
+							"path": [
+								"v4",
+								"apikey",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"error\": {\n        \"code\": 404008,\n        \"messages\": [\n            \"The apikey was not found\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "v5 Threat Intel Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Simple Threat Name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filters\": {       \n        \"standard_threat_name\": \"*.Trojan.*\"     \n    },\n    \"limit\": 100\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Glob Patterns",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filters\": {\n        \"reputation\": \"mal*\",\n        \"risk_level\": \"hi*\",\n        \"platforms\": \"Win*\"\n    },\n    \"limit\": 100\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Text Arrays",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filters\": {\n        \"first_seen\": {\"gt\": \"2023-06-20T12:00:00.000Z\"},\n        \"file_info.file_type_category\": \"E\",\n        \"malware_types\": [\"trojan*\", \"*miner\"],\n        \"malware_families\": [\"eldorado*\", \"kryptik\"],\n        \"risk_level\": \"high\",\n        \"standard_threat_name\": \"*\"\n    },\n    \"limit\": 100\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Numeric and date comparisons",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filters\": {\n        \"reputation_i\": [1, 2],\n        \"first_seen\": {\"gt\": \"2023-06-20T18:26:40.000Z\"},\n        \"av_detection_count\": {\"gte\": 5, \"lt\": 20},\n        \"file_info.file_type_extension\": \"exe\",\n        \"file_info.file_size\": {\"lte\": 100000},\n        \"standard_threat_name\": \"*\"\n    },   \n    \"limit\": 10\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Benign executables",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"description": "Gives rights to use the endpoint",
+						"key": "apikey",
+						"value": "{{apikey}}"
+					},
+					{
+						"description": "Specify the http content type",
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "includescandetails",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filters\": {\n        \"first_seen\": {\"gt\": \"2023-06-20T18:26:40.000Z\"},\n        \"file_info.file_size\": {\n            \"lt\": 1000000\n        },\n        \"file_info.file_type_extension\": \"EXE\",\n        \"reputation\": \"benign\"\n    },\n    \"limit\": 10\n}"
+				},
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similarity Search - Hash Lookup #1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/similarity-search/bd046e6497b304e4ea4ab102cab2b1f94ce09bde0eebba4c59942a732679e4eb",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"similarity-search",
+						"bd046e6497b304e4ea4ab102cab2b1f94ce09bde0eebba4c59942a732679e4eb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similarity Search - Hash Lookup #2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text"
+					},
+					{
+						"key": "tags",
+						"value": "installer",
+						"type": "text"
+					},
+					{
+						"key": "verdict",
+						"value": "MALICIOUS",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/similarity-search/d5c9ac7722bca76ff8e44ea7b8ebc8bfed23f09ebd39e94d1a042273801d8425",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"similarity-search",
+						"d5c9ac7722bca76ff8e44ea7b8ebc8bfed23f09ebd39e94d1a042273801d8425"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similarity Search - Hash Lookup #3",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/similarity-search/2e8a440a90ff1b15c8cf93eaf47fbb8f95fc0d14e9fa665dd9f4a2596387bbbf",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"similarity-search",
+						"2e8a440a90ff1b15c8cf93eaf47fbb8f95fc0d14e9fa665dd9f4a2596387bbbf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similarity Search - Hash Lookup #4",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/similarity-search/f004c568d305cd95edbd704166fcd2849d395b595dff814bcc2012693527ac37",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"similarity-search",
+						"f004c568d305cd95edbd704166fcd2849d395b595dff814bcc2012693527ac37"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Similarity Search - Hash Lookup #5",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "limit",
+						"value": "5",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.metadefender.com/v5/threat-intel/similarity-search/414ed6f7183b0a53b29f31e960246a9f59c2e1949fd69b94d53f06dd27ec6869",
+					"protocol": "https",
+					"host": [
+						"api",
+						"metadefender",
+						"com"
+					],
+					"path": [
+						"v5",
+						"threat-intel",
+						"similarity-search",
+						"414ed6f7183b0a53b29f31e960246a9f59c2e1949fd69b94d53f06dd27ec6869"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
